@@ -534,12 +534,15 @@ def main():
             trust_remote_code=model_args.trust_remote_code,
             torch_dtype=torch_dtype,
             low_cpu_mem_usage=model_args.low_cpu_mem_usage,
-            attn_implementation="flash_attention_2",
+            attn_implementation="sdpa",
         )
     else:
         # n_params = sum({p.data_ptr(): p.numel() for p in model.parameters()}.values())
         model = AutoModelForCausalLM.from_config(config,
-                                                attn_implementation="flash_attention_2")
+                                                attn_implementation="sdpa")
+        model = model.to(torch.float32) 
+        logger.info(f"Forced model dtype to: {model.dtype}") # 確認用ログ
+        
         n_params = sum({p.data_ptr(): p.numel() for p in model.parameters()}.values())
         logger.info(f"Training new model from scratch - Total size={n_params/2**20:.2f}M params")
     # We resize the embeddings only when necessary to avoid index errors. If you are creating a model from scratch
