@@ -5,6 +5,16 @@
 [![Zenn](https://img.shields.io/badge/--FFFFFF?style=social&logo=zenn&label=zenn)](https://zenn.dev/selllous)
 [![Twitter](https://img.shields.io/badge/--FFFFFF?style=social&logo=twitter&label=twitter)](https://twitter.com/ce__lery)
 
+rtx2080tiで動かすために調整した。
+
+## Changes 
+
+- flash-attnが使えないので、sdpaに
+- bfloat16が使えないため、float16に
+- 学習オプションを最適化、CPU=16コア、RAM=64GB
+- データセットの破損を検出するスクリプト追加
+- TUIで推論できるスクリプト追加 
+
 ## Overview
 
 Welcome to my repository!   
